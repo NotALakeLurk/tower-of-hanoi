@@ -44,6 +44,25 @@ const game_state = {
   }
 };
 
-let puzzle_area = document.getElementById("puzzle-area");
+// remove children:
+function remove_children(elem) {
+  while (elem.lastElementChild)
+    elem.removeChild(elem.lastElementChild);
+}
 
-puzzle_area.innerHTML += "<p>test</p>";
+function update_pegs(disks, puzzle_area, game_state) {
+  const NUM_PEGS = 3;
+
+  // iterate through all the pegs and update each according to its gamestate
+  for (let i = 0; i < NUM_PEGS; ++i) {
+    let peg = puzzle_area.children[i];
+    
+    // clear the disks
+    remove_children(peg);
+
+    // update peg to match its gamestate
+    for (const disk in game_state.pegs[i]) {
+      peg.appendChild(disks[disk];
+    }
+  }
+}
