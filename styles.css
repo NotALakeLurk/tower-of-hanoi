@@ -18,6 +18,9 @@
   height: 250px;
   width: 250px;
 }
+.peg:focus {
+  background-color: orange;
+}
 
 .disk {
   background-color: blue;

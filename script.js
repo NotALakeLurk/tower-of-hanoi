@@ -106,9 +106,31 @@ function main() {
   for (const peg in game_state.pegs) {
     let peg_elem = document.createElement("div");
     peg_elem.className = "peg";
+    peg_elem.tabIndex="0";
 
     puzzle_area.appendChild(peg_elem);
   }
 
   update_pegs(disks, puzzle_area, game_state);
+
+  puzzle_area.addEventListener("keydown", (e) => {
+    switch (e.code) {
+      // select next/previous peg
+      case "ArrowLeft":
+        game_state.inc_peg(-1);
+        break;
+      case "ArrowRight":
+        game_state.inc_peg(1);
+        break;
+      default:
+        console.log(e.code);
+        return; // without stoping propogation
+    }
+
+    // focus on the current peg
+    puzzle_area.children[game_state.selected_peg].focus();
+
+    // finish the event
+    e.stopPropagation();
+  });
 }
