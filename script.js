@@ -9,6 +9,8 @@ function rem_euclid(a, b) { // https://stackoverflow.com/a/20638659
   return m;
 }
 
+const NUM_PEGS = 3;
+
 const game_state = {
   selected_peg : 0, // which peg is selected
   held_disk : null, // the disk that is held
@@ -40,10 +42,41 @@ const game_state = {
 
   // inc_peg changes the selected peg to the next or previous peg based on whether 1 (next) or -1 (prev.) is given
   inc_peg : function(delta) {
-    this.selected_peg = rem_euclid(this.selected_peg + delta, 3) // 3 pegs
+    this.selected_peg = rem_euclid(this.selected_peg + delta, NUM_PEGS) // 3 pegs
   }
 };
 
-let puzzle_area = document.getElementById("puzzle-area");
+function get_disk_width(disk_size, num_disks) {
+    return 100 - (100/num_disks)*disk_size; // size of disks decreases linearly
+                                            // from 100%
+}
 
-puzzle_area.innerHTML += "<p>test</p>";
+function update_graphics(game_state, puzzle_area, disk_elems) {
+  for (let i = 0; i < NUM_PEGS; ++i) {
+    puzzle_area.
+}
+
+document.body.onload = main;
+
+function main() {
+  const num_disks = 5;
+
+  // logical setup
+  for (let i = 0; i < num_disks; ++i) {
+    game_state.pegs[0].push(i); // push the disks onto the first peg
+  }
+
+  // graphical setup
+
+  let puzzle_area = document.getElementById("puzzle-area");
+
+  for (const peg in game_state.pegs) {
+    let peg_elem = document.createElement("div");
+    peg_elem.class = "peg";
+
+    puzzle_area.appendChild(peg_elem);
+  }
+
+  
+}
+

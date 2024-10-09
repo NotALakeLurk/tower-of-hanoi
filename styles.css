@@ -1,0 +1,29 @@
+#puzzle-area { 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 50px;
+}
+
+.peg {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  
+  background-color: yellow;
+  height: 250px;
+  width: 250px;
+}
+
+.disk {
+  background-color: blue;
+  width: 100px;
+  height: 50px;
+
+  border: 4px solid black;
+  border-radius: 10px;
+}
