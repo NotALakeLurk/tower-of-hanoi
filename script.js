@@ -51,9 +51,25 @@ function get_disk_width(disk_size, num_disks) {
                                             // from 100%
 }
 
-function update_graphics(game_state, puzzle_area, disk_elems) {
+// remove children:
+function remove_children(elem) {
+  while (elem.lastElementChild)
+    elem.removeChild(elem.lastElementChild);
+}
+
+function update_pegs(disks, puzzle_area, game_state) {
+  // iterate through all the pegs and update each according to its gamestate
   for (let i = 0; i < NUM_PEGS; ++i) {
-    puzzle_area.
+    let peg = puzzle_area.children[i];
+    
+    // clear the disks
+    remove_children(peg);
+
+    // update peg to match its gamestate
+    for (const disk in game_state.pegs[i]) {
+      peg.appendChild(disks[disk]);
+    }
+  }
 }
 
 document.body.onload = main;
@@ -68,15 +84,31 @@ function main() {
 
   // graphical setup
 
+  // create disk elements (ordered by size)
+  disks = new Array();
+  for (let i = 0; i < num_disks; ++i) {
+    let disk = document.createElement("div");
+    disk.className = "disk";
+
+    // set width and height based on disk size and number of disks
+    let width = get_disk_width(i, num_disks);
+    let height = 100 / num_disks;
+
+    disk.style.width = `${width}%`;
+    disk.style.height = `${height}%`;
+
+    disks.push(disk);
+  }
+
+
   let puzzle_area = document.getElementById("puzzle-area");
 
   for (const peg in game_state.pegs) {
     let peg_elem = document.createElement("div");
-    peg_elem.class = "peg";
+    peg_elem.className = "peg";
 
     puzzle_area.appendChild(peg_elem);
   }
 
-  
+  update_pegs(disks, puzzle_area, game_state);
 }
-
