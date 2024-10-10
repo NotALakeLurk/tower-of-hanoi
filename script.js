@@ -26,7 +26,6 @@ const game_state = {
     if (this.held_disk == null) {
       // pop top disk off stack and hold it
       this.held_disk = peg.pop();
-      console.log("holding");
       return;
     }
 
@@ -38,7 +37,6 @@ const game_state = {
     // selected peg is available (top is undefined or less than held disk)
     // put the held disk on the peg
     peg.push(this.held_disk);
-    console.log(peg);
     this.held_disk = null;
   },
 
