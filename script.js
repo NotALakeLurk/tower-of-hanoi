@@ -106,13 +106,14 @@ function main() {
   for (const peg in game_state.pegs) {
     let peg_elem = document.createElement("div");
     peg_elem.className = "peg";
-    peg_elem.tabIndex="0";
+    peg_elem.tabIndex="-1"; // allow .focus() but not tab (tab messes up accessibility)
 
     puzzle_area.appendChild(peg_elem);
   }
 
   update_pegs(disks, puzzle_area, game_state);
 
+  // switch selected peg with keypresses
   puzzle_area.addEventListener("keydown", (e) => {
     switch (e.code) {
       // select next/previous peg
@@ -132,5 +133,13 @@ function main() {
 
     // finish the event
     e.stopPropagation();
+  });
+
+  // focus selected peg when user tabs into game
+  puzzle_area.addEventListener("focus", (e) => {
+    // allow user to tab out of game from inside game
+    if (puzzle_area.contains(e.relatedTarget)) return;
+
+    puzzle_area.children[game_state.selected_peg].focus()
   });
 }
