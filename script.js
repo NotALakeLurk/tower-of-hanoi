@@ -26,6 +26,7 @@ const game_state = {
     if (this.held_disk == null) {
       // pop top disk off stack and hold it
       this.held_disk = peg.pop();
+      console.log("holding");
       return;
     }
 
@@ -37,6 +38,7 @@ const game_state = {
     // selected peg is available (top is undefined or less than held disk)
     // put the held disk on the peg
     peg.push(this.held_disk);
+    console.log(peg);
     this.held_disk = null;
   },
 
@@ -66,7 +68,7 @@ function update_pegs(disks, puzzle_area, game_state) {
     remove_children(peg);
 
     // update peg to match its gamestate
-    for (const disk in game_state.pegs[i]) {
+    for (const disk of game_state.pegs[i]) {
       peg.appendChild(disks[disk]);
     }
   }
@@ -78,7 +80,7 @@ function main() {
   const num_disks = 5;
 
   // logical setup
-  for (let i = 0; i < num_disks; ++i) {
+  for (let i = num_disks-1; i >= 0; --i) {
     game_state.pegs[0].push(i); // push the disks onto the first peg
   }
 
@@ -86,7 +88,7 @@ function main() {
 
   // create disk elements (ordered by size)
   disks = new Array();
-  for (let i = 0; i < num_disks; ++i) {
+  for (let i = num_disks-1; i >= 0; --i) {
     let disk = document.createElement("div");
     disk.className = "disk";
 
@@ -122,6 +124,10 @@ function main() {
         break;
       case "ArrowRight":
         game_state.inc_peg(1);
+        break;
+      case "Space":
+        game_state.grab_release();
+        update_pegs(disks, puzzle_area, game_state);
         break;
       default:
         console.log(e.code);
