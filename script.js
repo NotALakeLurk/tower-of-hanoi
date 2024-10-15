@@ -1,14 +1,3 @@
-function rem_euclid(a, b) { // https://stackoverflow.com/a/20638659
-  if (b == 0) throw new Error("DivideByZero");
-  if (b == -1) return 0; // This test needed to prevent UB of `INT_MIN % -1`.
-  let m = a % b;
-  if (m < 0) {
-    // m += (b < 0) ? -b : b; // avoid this form: it is UB when b == INT_MIN
-    m = (b < 0) ? m - b : m + b;
-  }
-  return m;
-}
-
 const NUM_PEGS = 3;
 
 const game_state = {
@@ -42,7 +31,12 @@ const game_state = {
 
   // inc_peg changes the selected peg to the next or previous peg based on whether 1 (next) or -1 (prev.) is given
   inc_peg : function(delta) {
-    this.selected_peg = rem_euclid(this.selected_peg + delta, NUM_PEGS) // 3 pegs
+    let new_val = delta + this.selected_peg;
+    console.log(new_val);
+    if (new_val < 0) new_val = 0;
+    if (new_val >= NUM_PEGS) new_val = NUM_PEGS - 1;
+    
+    this.selected_peg = new_val;
   }
 };
 
