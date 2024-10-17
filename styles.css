@@ -1,0 +1,40 @@
+/* DEV VIEW */
+#puzzle-area:focus {
+  background-color: black;
+}
+.peg:focus {
+  background-color: orange;
+}
+.disk {
+  background-color: blue;
+}
+.peg {
+  background-color: yellow;
+}
+
+#puzzle-area { 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 50px;
+}
+
+.peg {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 250px;
+  width: 250px;
+}
+
+.disk {
+  background-color: blue;
+  border-radius: 10px;
+  border: medium solid black;
+  box-sizing: border-box;
+}
